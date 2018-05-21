@@ -34,3 +34,9 @@ target_link_libraries(tcp_listener sound_interface)
 ####################################################################################################
 add_executable(AlsaTest main.cpp)
 target_link_libraries(AlsaTest sound_interface tcp_listener)
+
+####################################################################################################
+####################################################################################################
+####################################################################################################
+add_executable(AlsaClient Client.cpp)
+target_link_libraries(AlsaClient wiringPi pthread rt crypt)

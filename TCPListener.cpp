@@ -65,26 +65,15 @@ void TCPListener::loop()
 
 		std::string msg(buffer, strLen);
 
+		int volume = 0;
+
 		if (strLen > 0) 
 		{
-			//process message
-			if(msg == "DOWN\n")
-			{
-				std::cout << "decrease the sound" << std::endl;
-				m_lsi->volumeSetValue(m_lsi->getVolumeCurrent()-10);
-			}
-			if(msg == "UP\n")
-			{
-				std::cout << "increase the sound" << std::endl;
-				m_lsi->volumeSetValue(m_lsi->getVolumeCurrent()+10);
-			}
-			if(msg == "BYE\n")
-			{
-				std::cout << "client disconnected" << std::endl;
-				break;
-			}
+			sscanf(msg.c_str(), "VOLUME %d", &volume);
+			std::cout << "volume change request : " << volume << std::endl;
+			m_lsi->volumeSetValue(volume);
 		}
-		else //0 : client disconnected
+		else //size 0 : client disconnected
 		{
 			std::cout << "client disconnected" << std::endl;
 			break;
